@@ -53,7 +53,7 @@ compile: $(objects)
 %.o: %.c
     # $< το όνομα του αρχείου %.o %.c 
     # για παράδειγμα main.o main.c 
-    $(CC) $(CFLAGS) -c $<
+    $(CC) $(CFLAGS) $<
 
 cleanup:
     rm -rf *.o
