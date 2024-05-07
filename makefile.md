@@ -53,6 +53,7 @@ make compile CC=clang
 objects=main.o other.o
 
 # Τρέχει και απλά με make η πρώτη
+```make
 compile: $(objects)
     $(CC) -o main
 
