@@ -66,3 +66,28 @@ cleanup:
     rm -rf *.o
 
 ```
+
+# Χρήση εντολών υπό συνθήκη
+
+```make
+CC=gcc
+
+compile:
+ifeq(CC, gcc)
+    gcc main.c -o main
+else
+    clang main.c -o main
+endif
+
+```
+
+Εδώ βλέπουμε τον τρόπο που μπορεί να χρησιμοποιηθεί με βάση συνθήκη
+η εντολή compile 
+
+```make
+compile:
+ifdef STRING_TO_PRINT
+    echo STRING_TO_PRINT
+```
+
+Μπορεί να χρησιμοποιηθεί και για αν υπάρχουν μεταβλητές
