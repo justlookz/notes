@@ -50,7 +50,9 @@ make compile CC=clang
 ```
 
 # Ονόματα από object αρχεία
+```make
 objects=main.o other.o
+```
 
 # Τρέχει και απλά με make η πρώτη
 ```make
