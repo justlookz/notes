@@ -91,6 +91,7 @@ endif
 compile:
 ifdef STRING_TO_PRINT
     echo STRING_TO_PRINT
+endif
 ```
 
 Μπορεί να χρησιμοποιηθεί και για αν υπάρχουν μεταβλητές
