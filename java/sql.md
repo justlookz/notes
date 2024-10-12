@@ -77,8 +77,10 @@ class ExampleJDBC {
             "insert into person (id, name, age) values (?, ?, ?)"
         );
 
-        pstm.setString(1, "Mary", 30);
-        pstm.setString(2, "Bob", 21);
+        pstm.setInt(1, 1); // id
+        pstm.setString(2, "Mary"); // name
+        pstm.setInt(3, 21); // age
+
         pstm.executeUpdate();
 
         ResultSet rs = stmt.executeQuery(
