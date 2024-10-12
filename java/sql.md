@@ -35,11 +35,31 @@ try {
 }
 ```
 
-για να κάνουμε ένα αίτημα χρησιμοποιούμε
+Για να κάνουμε ένα αίτημα χρησιμοποιούμε
 
 ```java
-stmt.executeQuery("sql_qyery here");
+stmt.executeQuery("sql_query here");
 ```
+
+για αλλαγες στην βάση έχουμε το
+
+```java
+stmt.executeUpdate("sql_query");
+```
+
+Γίνονται και με το prepareStatement
+
+```java
+PrepareStatement pstm = con.prepareStatement("queries with ?");
+pstm.setString(1, "value"); // if string
+pstm.setInt(2, an_int); // if int
+pstm.setDouble(3, a_double);
+int count = pstm.executeUpdate(); // return number of changes
+// or
+ResultSet rs = pstm.executeQuery(); // Return table rows
+// etc
+```
+
 
 τέλος κλείνουμε την σύνδεση με
 
@@ -47,8 +67,13 @@ stmt.executeQuery("sql_qyery here");
 con.close();
 ```
 
+## Example code
+
 ```java
 class ExampleJDBC {
+
+    // Μεταβλητές
+
     Connection con;
     Statement stmt;
     ResultSet ra;
@@ -56,23 +81,31 @@ class ExampleJDBC {
     String user = "User";
     String password = "password";
 
+    // Δημιουργία σύνδεσης με την βιβλιοθήκη
+    Class.forName("com.mysql.jdbc.Driver");
+
     try {
+        // Δημιουργία σύνδεσης με την βάση
         Connection con = DriverManager.getConnection(db_url, user, password);
 
         stmt = con.getStatement();
 
+
+        // Δημιουργία του πίνακα people
         int count = stmt.executeUpdate(
             "create table people ("
             + "id int, name varchar(16), age int "
             + "primary key (id);"
         );
 
+        // Εισαγωγή δεδομένων
         int count2 = stmt.executeUpdate(
             "insert into person (id, name, age)"
             + "values ("
             + "0, George, 19);"
         )
 
+        // και με PrepareStatement
         PrepareStatement pstm = con.prepareStatement(
             "insert into person (id, name, age) values (?, ?, ?)"
         );
@@ -82,6 +115,9 @@ class ExampleJDBC {
         pstm.setInt(3, 21); // age
 
         pstm.executeUpdate();
+
+
+        // Ανάγνωση δεδομένων
 
         ResultSet rs = stmt.executeQuery(
             "select name, age from person;"
@@ -96,6 +132,7 @@ class ExampleJDBC {
     } catch (SQLException se) {
         System.err.println(se.toString());
     } finally {
+        // Εαν δεν υπάρχει σύνδεση, τότε είναι null
         if (rs != null) rs.close();
         if (con != null) con.close();
     }
