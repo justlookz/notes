@@ -68,9 +68,18 @@ class ExampleJDBC {
         );
 
         int count2 = stmt.executeUpdate(
-            "insert into person ("
+            "insert into person (id, name, age)"
+            + "values ("
             + "0, George, 19);"
         )
+
+        PrepareStatement pstm = con.prepareStatement(
+            "insert into person (id, name, age) values (?, ?, ?)"
+        );
+
+        pstm.setString(1, "Mary", 30);
+        pstm.setString(2, "Bob", 21);
+        pstm.executeUpdate();
 
         ResultSet rs = stmt.executeQuery(
             "select name, age from person;"
