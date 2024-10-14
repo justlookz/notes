@@ -25,11 +25,11 @@ Class.forName("com.mysql.jdbc.Driver");
 Συνδεόμαστε σε αυτήν
 
 ```java
-Connection con;
+Connection conn;
 Statement stmt;
 try {
-    con = DriverManager.getConnection("db_url", "user", "password");
-    stmt = con.getStatement();
+    conn = DriverManager.getConnection("db_url", "user", "password");
+    stmt = conn.getStatement();
 } catch (SQLException se) {
     System.err.println(se.toString());
 }
@@ -50,7 +50,7 @@ stmt.executeUpdate("sql_query");
 Γίνονται και με το prepareStatement
 
 ```java
-PrepareStatement pstm = con.prepareStatement("queries with ?");
+PrepareStatement pstm = conn.prepareStatement("queries with ?");
 pstm.setString(1, "value"); // if string
 pstm.setInt(2, an_int); // if int
 pstm.setDouble(3, a_double);
@@ -64,10 +64,11 @@ ResultSet rs = pstm.executeQuery(); // Return table rows
 τέλος κλείνουμε την σύνδεση με
 
 ```java
-con.close();
+conn.close();
 ```
 
 ## Example code
+Ένα ολοκληρωμένο παράδειγμα είναι το εξής
 
 ```java
 class ExampleJDBC {
@@ -88,7 +89,7 @@ class ExampleJDBC {
         // Δημιουργία σύνδεσης με την βάση
         Connection con = DriverManager.getConnection(db_url, user, password);
 
-        stmt = con.getStatement();
+        stmt = conn.getStatement();
 
 
         // Δημιουργία του πίνακα people
@@ -106,7 +107,7 @@ class ExampleJDBC {
         )
 
         // και με PrepareStatement
-        PrepareStatement pstm = con.prepareStatement(
+        PrepareStatement pstm = conn.prepareStatement(
             "insert into person (id, name, age) values (?, ?, ?)"
         );
 
@@ -134,7 +135,7 @@ class ExampleJDBC {
     } finally {
         // Εαν δεν υπάρχει σύνδεση, τότε είναι null
         if (rs != null) rs.close();
-        if (con != null) con.close();
+        if (con != null) conn.close();
     }
 }
 ```
