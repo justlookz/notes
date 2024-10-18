@@ -106,7 +106,7 @@ class ExampleJDBC {
             + "0, George, 19);"
         )
 
-        // και με PrepareStatement
+        // και με PreparedStatement
         PrepareStatement pstm = conn.prepareStatement(
             "insert into person (id, name, age) values (?, ?, ?)"
         );
